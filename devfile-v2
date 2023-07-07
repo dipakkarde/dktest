@@ -1,13 +1,19 @@
-    schemaVersion: 2.1.0
-    metadata:
-      name: mydevfile
-    components:
-      - name: go
-        container:
-          image: golang
-          memoryLimit: 512Mi
-          mountSources: true
-          command: ['sleep', 'infinity']
-          env:
-            - name: gopath
-              value: $(PROJECTS_ROOT)/go
+schemaVersion: 2.0.0
+
+components:
+
+  - name: gatsby
+
+container:
+
+   image: quay.io/eclipse/che-nodejs10-ubi:nightly
+
+   mountSources: true
+
+   memoryLimit: 700Mi
+
+   endpoints:
+
+     - name: web
+
+       targetPort: 8000
