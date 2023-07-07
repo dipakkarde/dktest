@@ -1,46 +1,16 @@
-schemaVersion: 2.0.0
+schemaVersion: 2.1.0
 metadata:
-  name: python
-  version: 1.0.0
-  displayName: Python
-  description: Python Stack with Python 3.7
-  icon: https://raw.githubusercontent.com/devfile-samples/devfile-stack-icons/main/python.svg
-  tags: ['Python', 'pip']
-  projectType: 'python'
-  language: 'python'
-starterProjects:
-  - name: python-example
-    git:
-      remotes:
-        origin: https://github.com/odo-devfiles/python-ex
+  name: mydevfile
 components:
-  - name: py-web
+  - name: mydevfile
     container:
-      image: quay.io/eclipse/che-python-3.7:nightly
+      image: golang
+      memoryLimit: 512Mi
       mountSources: true
-      endpoints:
-        - name: web
-          targetPort: 8080
-commands:
-  - id: pip-install-requirements
-    exec:
-      commandLine: pip install --user -r requirements.txt
-      group:
-        kind: build
-        isDefault: true
-      component: py-web
-  - id: run-app
-    exec:
-      commandLine: 'python app.py'
-      workingDir: ${PROJECTS_ROOT}
-      component: py-web
-      group:
-        kind: run
-        isDefault: true
-  - id: debugpy
-    exec:
-      commandLine: 'pip install --user debugpy && python -m debugpy --listen 0.0.0.0:${DEBUG_PORT} app.py'
-      workingDir: ${PROJECTS_ROOT}
-      component: py-web
-      group:
-        kind: debug
+      command: ['sleep', 'infinity']
+      volumeMounts:
+        - name: cache
+          path: /.cache
+  - name: cache
+    volume:
+      size: 2Gi
